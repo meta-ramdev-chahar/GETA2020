@@ -1,15 +1,14 @@
 
-
 /**
  * 
  * @author Ramdev
- * this class includes methods for comparing two stings , reversal of string, to case vice-versa and to find largest word from a string 
+ * implements methods for comparing two stings , reversal of string, to case vice-versa and to find largest word from a string 
  * 
  */
 public class StringOperations 
 {
 	/**
-	 * 
+	 * compare two strings
 	 * @param first_string
 	 * @param second_string 
 	 * @return 1 if both strings are equal else 0
@@ -22,7 +21,7 @@ public class StringOperations
 			return 0;
 	}
 	/**
-	 * 
+	 * reverse the string
 	 * @param string to be reversed
 	 * @return reversed string
 	 */
@@ -37,7 +36,7 @@ public class StringOperations
 		
 	}
 	/**
-	 * 
+	 * inverts the case of all alphabets
 	 * @param string whose case needs to be inverted
 	 * @return string with inverted case
 	 */
@@ -60,7 +59,7 @@ public class StringOperations
 	}
 	
 	/**
-	 * 
+	 * find the word of maximum length in given string
 	 * @param a sentence in the form of string
 	 * @return the word with largest length
 	 */

@@ -1,13 +1,13 @@
 /**
  * 
  * @author Ramdev
- * Area class contains methods to calculate area of different shapes like Triangle, Rectangle, Circle, Square.
+ * Implements methods to calculate area of different shapes like Triangle, Rectangle, Circle, Square.
  *
  */
 public class Area
 {
 	/**
-	 * To find area of Right Angle Triangle
+	 * find area of Right Angle Triangle
 	 * @param  height of a right angle triangle should be > 0
 	 * @param width of a right angle triangle should be > 0
 	 * @return area of triangle
@@ -19,7 +19,7 @@ public class Area
 	}
 	
 	/**
-	 * To find area of Rectangle
+	 * find area of Rectangle
 	 * @param  height of a right angle triangle should be > 0
 	 * @param width of a right angle triangle should be > 0
 	 * @return area of Rectangle
@@ -31,7 +31,7 @@ public class Area
 	}
 	
 	/**
-	 * To Find area of Circle
+	 * Find area of Circle
 	 * @param radius of a circle should be > 0
 	 * @return area of a circle
 	 */
@@ -41,7 +41,7 @@ public class Area
 		return areaOfCircle;
 	}
 	/**
-	 * To Find area of Square
+	 * Find area of Square
 	 * @param side of a square should be greater than zero
 	 * @return area of a square
 	 */

@@ -1,9 +1,8 @@
 import java.util.Scanner;
 
-/**
- * 
+/** 
  * @author Ramdev
- *
+ * Provide user interaction with Area class
  */
 public class ImplementArea 
 {

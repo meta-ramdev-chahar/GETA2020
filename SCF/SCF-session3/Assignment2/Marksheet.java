@@ -3,7 +3,7 @@ import java.io.IOException;
 /**
  * 
  * @author Ramdev 
- * This class include finding maximum,minimum grades or average grades,percentage of pass student
+ * implements finding maximum,minimum grades or average grades,percentage of pass student
  *
  */
 public class Marksheet 
@@ -12,8 +12,7 @@ public class Marksheet
 	public static final int minimumPassingGrade = 40;
 	
 	/**
-	 * 
-	 * To Find average grade
+	 * Find average grade of all students
 	 * @param grades array for containing grades of all students
 	 * @param numberOfStudents total number of students.
 	 * @return average grade
@@ -40,8 +39,7 @@ public class Marksheet
 	}
 	
 	/**
-	 * 
-	 * To Find maximum grade
+	 * Find maximum grade among all students
 	 * @param grades array for containing grades of all students
 	 * @param numberOfStudents total number of students.
 	 * @return maximum grade.
@@ -99,8 +97,7 @@ public class Marksheet
 	}
 	
 	/**
-	 * 
-	 * To Find percentage of students passed
+	 * Find percentage of students passed
 	 * @param grades array for containing grades of all student
 	 * @param numberOfStudents total number of students.
 	 * @return percentage of students passed
@@ -135,6 +132,7 @@ public class Marksheet
 	 * @param numberOfStudents total number of students.
 	 * @return true if grades is in between 0 to 100 inclusive
 	 */
+	
 	private boolean gradesValidation(double grades[], int numberOfStudents)
 	{
 		for(int itreator = 0; itreator < numberOfStudents; itreator++)

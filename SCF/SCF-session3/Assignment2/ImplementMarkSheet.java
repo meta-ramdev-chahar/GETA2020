@@ -2,9 +2,8 @@ import java.io.IOException;
 import java.util.Scanner;
 
 /**
- * 
  * @author Ramdev
- * 
+ * provide User interaction with Marksheet class
  */
 public class ImplementMarkSheet {
 

@@ -1,8 +1,7 @@
 import java.util.*;
-/**
- * 
+/** 
  * @author Ramdev
- *
+ * Provide User interaction with String operations class
  */
 public class ImplimentStringOperations 
 {
