@@ -2,13 +2,13 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * 
  * @author Ramdev
- *
+ * implements the methods maxMirror, countClumps, fixXY, splitArray
  */
 public class ArrOperations 
 {
 	/**
+	 * find the size of the largest mirror section found in the input array
 	 * @param array of positive integers.
 	 * @return Return the size of the largest mirror section found in the input array.
 	 */
@@ -44,7 +44,7 @@ public class ArrOperations
 		return maxMirror;
 	}
 	/**
-	 * 
+	 * find the number of clumps in the input array
 	 * @param array of positive integers.
 	 * @return Clumps: Clump in an array is a series of 2 or more adjacent elements of the same value.
 	 */
@@ -75,7 +75,7 @@ public class ArrOperations
 		return clumps;
 	}
 	/**
-	 * 
+	 * Solve fixXY problem in an array
 	 * @param array of positive integers.
 	 * @param x , Positive integer.
 	 * @param y , Positive integer.
@@ -92,24 +92,24 @@ public class ArrOperations
 		{ 
 			throw new AssertionError("X is at invalid index"); 
 		}
-		//this will stores all indexes of misplaced y values in the array
+		
 		List<Integer> allWrongPlacedY = new ArrayList<Integer>();
-		int countX = 0; //To store number of X's in Array
-		int countY = 0; //To store number of Y's in Array
+		int countX = 0; 
+		int countY = 0; 
 
 		for(int arrayIndex = 0; arrayIndex < arrayLength; arrayIndex++)
 		{
-			if(array[arrayIndex] == x && array[arrayIndex+1] == x) //checking if two x occur continuously 
+			if(array[arrayIndex] == x && array[arrayIndex+1] == x)  
 			{ 
 				throw new AssertionError("Two continues X");
 			}
-			if(array[arrayIndex] == y && arrayIndex == 0) //checking if y occur in array at first position
+			if(array[arrayIndex] == y && arrayIndex == 0)
 			{
 				allWrongPlacedY.add(arrayIndex);
 				countY++;
 				continue;
 			}
-			//checking if y occurs in array at wrong place than storing index in allWrongPlacedY list
+			
 			if(array[arrayIndex] == y && array[arrayIndex-1] != x)
 			{
 				allWrongPlacedY.add(arrayIndex);
@@ -133,10 +133,8 @@ public class ArrOperations
 		int fixedXYArray[] = array;
 		int arrayListIndex = 0;
 
-		//placing every wrong placed y right next to the x
 		for(int arrayIndex = 0; arrayIndex < arrayLength; arrayIndex++)
 		{
-			//checking if X is not immediately followed by a Y
 			if(fixedXYArray[arrayIndex] == x && fixedXYArray[arrayIndex + 1] != y)
 			{
 				fixedXYArray[allWrongPlacedY.get(arrayListIndex)] = fixedXYArray[arrayIndex + 1];
@@ -147,7 +145,7 @@ public class ArrOperations
 		return fixedXYArray;
 	}
 	/**
-	 * 
+	 * find index of array where sum of LHS = sum of RHS 
 	 * @param array of positive integers.
 	 * @return the index if there is a place to split the input array so that the sum of the numbers
 	 * 			on one side is equal to the sum of the numbers on the other side else return -1.
@@ -155,13 +153,12 @@ public class ArrOperations
 	 public int splitArray(int array[]) throws AssertionError
 		{
 
-		 	int arrayLength = array.length;
+		 	int arrayLength = array.length, sumOfArray = 0;;
 			if(arrayLength == 0)
 			{
 				throw new AssertionError("Null Array");
 			}
 			
-			int sumOfArray = 0;			
 			for(int arrayIndex = 0; arrayIndex < arrayLength; arrayIndex++)
 				sumOfArray += array[arrayIndex];
 
