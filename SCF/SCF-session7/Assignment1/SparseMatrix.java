@@ -4,7 +4,7 @@ import java.util.Comparator;
 /**
  * 
  * @author Ramdev
- * Implements methods used ..........
+ * Implements methods Used in Sparse Matrix operations Like transpose, checkSymmetry, addSparseMatrices, multiplySparse 
  */
 final class SparseMatrix 
 {
@@ -41,46 +41,6 @@ final class SparseMatrix
 		this.totalNonZeroElements = this.sparseMatrix.length;
 	}
 	
-	/**
-	 * find Sparse Matrix of normal Matrix
-	 * @param inputMatrix : 2D integer array
-	 * @return Sparse Matrix 
-	 */
-	private int[][] matrixToSparseMatrix(int[][] inputMatrix)
-	{
-		int row = inputMatrix.length, col = inputMatrix[0].length, counter = 0; //counter counts total non Zero elements 
-		
-		/**if all elements are non zero then max number or rows of sparse matrix will be row*col
-		* So  create a dummy 2D array of size (row*col)*3  
-		*/
-		int[][] sparseMatrix = new int[row*col][3];
-		for(int i = 0; i < row; i++)
-		{
-			for(int j = 0; j < col; j++)
-			{
-				if(inputMatrix[i][j] != 0)
-				{
-					sparseMatrix[counter][0] = i;
-					sparseMatrix[counter][1] = j;
-					sparseMatrix[counter][2] = inputMatrix[i][j];
-					counter++;
-				}
-			}
-		} 
-		if(counter < sparseMatrix.length)
-		{
-			int[][] newSparseMatrix = new int[counter][3];
-			
-			for(int i = 0; i < counter; i++)
-			{
-				newSparseMatrix[i] = sparseMatrix[i].clone();
-			}
-			
-			return newSparseMatrix;
-		}
-		
-		return sparseMatrix;
-	}
 	/**
 	 * find the transposed of a matrix in when it is in the Sparse Format
 	 * @return transposedSparseMatrix : Object of SparseMatrix
@@ -150,6 +110,75 @@ final class SparseMatrix
 		return new SparseMatrix( addedArray );
 	}
 	
+	 /**
+     * find multiplication of two sparse matrices
+     * @param firstMatrix
+     * @param secondMatrix
+     * @return multiplication of two matrices
+     * @throws AssertionError if firstMatrix's numberOfColumns not equal secondMatrix's numberOfRows
+     */
+    public static SparseMatrix multiplySparse(SparseMatrix firstMatrix, SparseMatrix secondMatrix) throws AssertionError
+    {
+    	if(firstMatrix.numberOfColumns != secondMatrix.numberOfRows)
+    		throw new AssertionError("Multiply Not Possible");
+    	
+    	int[][] locatMatrixOne = firstMatrix.sparseMatrixToMatrix();
+    	int[][] locatMatrixTwo = secondMatrix.sparseMatrixToMatrix();
+    	int[][] localResultMatrix= new int[locatMatrixOne.length][locatMatrixOne[0].length];
+    	
+        for (int i = 0; i < locatMatrixOne.length; i++) 
+        { 
+            for (int j = 0; j < locatMatrixTwo.length; j++) 
+            { 
+                localResultMatrix[i][j] = 0; 
+                for (int k = 0; k < locatMatrixTwo.length; k++) 
+                    localResultMatrix[i][j] += locatMatrixOne[i][k] * locatMatrixTwo[k][j]; 
+            } 
+        }
+        return new SparseMatrix(localResultMatrix);
+    }
+	
+	/**
+	 * find Sparse Matrix of normal Matrix
+	 * @param inputMatrix : 2D integer array
+	 * @return Sparse Matrix 
+	 */
+	private int[][] matrixToSparseMatrix(int[][] inputMatrix)
+	{
+		int row = inputMatrix.length, col = inputMatrix[0].length, counter = 0; //counter counts total non Zero elements 
+		
+		/**if all elements are non zero then max number or rows of sparse matrix will be row*col
+		* So  create a dummy 2D array of size (row*col)*3  
+		*/
+		int[][] sparseMatrix = new int[row*col][3];
+		for(int i = 0; i < row; i++)
+		{
+			for(int j = 0; j < col; j++)
+			{
+				if(inputMatrix[i][j] != 0)
+				{
+					sparseMatrix[counter][0] = i;
+					sparseMatrix[counter][1] = j;
+					sparseMatrix[counter][2] = inputMatrix[i][j];
+					counter++;
+				}
+			}
+		} 
+		if(counter < sparseMatrix.length)
+		{
+			int[][] newSparseMatrix = new int[counter][3];
+			
+			for(int i = 0; i < counter; i++)
+			{
+				newSparseMatrix[i] = sparseMatrix[i].clone();
+			}
+			
+			return newSparseMatrix;
+		}
+		
+		return sparseMatrix;
+	}
+	
 	/**
 	 * Find normal matrix from sparse matrix
 	 * @return Normal matrix
@@ -164,7 +193,7 @@ final class SparseMatrix
 	/**
 	 * Add SparseMatrix to A given Normal Array 
 	 * @param inputArray
-	 * @return
+	 * @return Added SparseMatrix to A given Normal Array and return that array
 	 */
     private int[][] addSparseToArray(int[][] inputArray)
     {
@@ -176,12 +205,12 @@ final class SparseMatrix
     }
     /**
      * Sort a Sparse Matrix As per RowColumn Wise 
-     * @param matrix
+     * @param inputMatrix : the matrix which Needs to be sort
      * @return Sorted Sparse Matrix
      */
-    private int[][] sortSparseByRowColumn(int[][] matrix)
+    private int[][] sortSparseByRowColumn(int[][] inputMatrix)
 	{
-		int[][] sortedMatrix = matrix;
+		int[][] sortedMatrix = inputMatrix;
 		Arrays.sort(sortedMatrix, new Comparator<int[]>()
 				{    
 	        @Override              
@@ -204,31 +233,5 @@ final class SparseMatrix
 		
 		return sortedMatrix;
 	}
-    /**
-     * find multiplication of two sparse matrices
-     * @param firstMatrix
-     * @param secondMatrix
-     * @return multiplication of two matrices
-     * @throws AssertionError if firstMatrix's numberOfColumns not equal secondMatrix's numberOfRows
-     */
-    public static SparseMatrix multiplySparse(SparseMatrix firstMatrix, SparseMatrix secondMatrix) throws AssertionError
-    {
-    	if(firstMatrix.numberOfColumns != secondMatrix.numberOfRows)
-    		throw new AssertionError("Multiply Not Possible");
-    	int[][] mat1 = firstMatrix.sparseMatrixToMatrix();
-    	int[][] mat2 = secondMatrix.sparseMatrixToMatrix();
-    	int[][] mat3 = new int[mat1.length][mat1[0].length];
-    	
-        for (int i = 0; i < mat1.length; i++) 
-        { 
-            for (int j = 0; j < mat2.length; j++) 
-            { 
-                mat3[i][j] = 0; 
-                for (int k = 0; k < mat2.length; k++) 
-                    mat3[i][j] += mat1[i][k]  
-                                * mat2[k][j]; 
-            } 
-        }
-        return new SparseMatrix(mat3);
-    }
+   
 }
