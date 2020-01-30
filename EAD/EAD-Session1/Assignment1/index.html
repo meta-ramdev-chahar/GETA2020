@@ -1,0 +1,505 @@
+<!DOCTYPE html>
+<html lang = "en">
+<head>
+    <meta charset = "UTF-8">
+    <title>Document</title>
+    <style>
+        body
+        {
+            background-color: silver;
+        }
+        h1
+        {
+            margin-top : 30px;
+        }
+        td
+        {
+            width : 200px;
+            padding-top : 10px;
+        }
+        input
+        {
+            border-style : groove;
+            border-radius : 30px;
+            padding : 5px;            
+        }
+        textarea,select
+        {
+            border-radius : 10px;
+        }
+        hr
+        {
+            width : 100%;
+            height : 2px;
+            color : black;
+        }
+        #costField
+        {
+            padding-left : 23px;
+        }
+    </style>
+
+    <script>
+        var empDetails;
+        var vehicleDetails;
+        var planDetails;
+        //This function submit employee form and validate it's inputs
+        function submitEmpForm()
+        {
+            if(validateEmpForm())
+            {
+                empDetails = document.getElementById('employeeForm');
+                var v1 = document.getElementById('EmpName').value + '';
+                var v2 = document.getElementById('EmpContactNumber').value + '';
+                document.getElementById('EmpId').value = v1.slice(0, 2) + v2.slice(0, 4) + v1.slice(2, 4);
+                hideEmpForm();
+                showVehicleForm();
+            }
+        }
+        //This funcation submit vehicle form and validate it's inputs
+        function submitVehicleForm()
+        {
+            if(validateVehicleForm())
+            {
+                vehicleDetails = document.getElementById('vehicleForm');
+                hideVehicleForm();
+                showSelectPlanForm();
+                showCurrency();
+            }
+        }
+        //This function submit plan selector form 
+        function submitPlanForm()
+        {
+            planDetails = document.getElementById('planForm');
+            hideSelectPlanForm();
+            showConfirmDetailsForm();
+            document.getElementById('CDEmpName').innerHTML = empDetails.elements[0].value;
+            document.getElementById('CDVehicleType').innerHTML = vehicleDetails.elements[1].value;
+            document.getElementById('CDVehicleNumber').innerHTML = vehicleDetails.elements[2].value;
+            document.getElementById('CDPlan').innerHTML = planDetails.elements[1].value;
+        }
+        //This function display prices according to selected currrency
+        function showCurrency()
+        {
+            var currency = document.getElementById('CurrencySelect').value;
+            var vehicleType = vehicleDetails.elements[1].value;
+            var dataRow;
+            var currencyArray = [[5, 100, 500], [10, 200, 1000], [20, 500, 3500]];
+
+            if(vehicleType == "Cycle")
+            {
+                dataRow = 0;
+            }
+            else if(vehicleType == "MotorCycle")
+            {
+                dataRow = 1;
+            }
+            else if(vehicleType == "FourWheeler")
+            {
+                dataRow = 2;
+            }
+            if(currency == "INR")
+            {
+                document.getElementById('DailyCost').innerHTML = currencyArray[dataRow][0];
+                document.getElementById('MonthlyCost').innerHTML = currencyArray[dataRow][1];
+                document.getElementById('YearlyCost').innerHTML = currencyArray[dataRow][2];
+            }
+            if(currency == "USD")
+            {
+                document.getElementById('DailyCost').innerHTML = convertToUSD(currencyArray[dataRow][0]);
+                document.getElementById('MonthlyCost').innerHTML = convertToUSD(currencyArray[dataRow][1]);
+                document.getElementById('YearlyCost').innerHTML = convertToUSD(currencyArray[dataRow][2]);
+            }
+            if(currency == "YEN")
+            {
+                document.getElementById('DailyCost').innerHTML = convertToYEN(currencyArray[dataRow][0]);
+                document.getElementById('MonthlyCost').innerHTML = convertToYEN(currencyArray[dataRow][1]);
+                document.getElementById('YearlyCost').innerHTML = convertToYEN(currencyArray[dataRow][2]);
+            }
+            showTotal();
+        }
+        //This function show totol according to selected plan
+        function showTotal()
+        {
+            if(document.getElementById('DailyPlan').checked == true)
+            {
+                document.getElementById('TotalCost').value = document.getElementById('DailyCost').innerHTML;
+            }
+            else if(document.getElementById('MonthlyPlan').checked == true)
+            {
+                document.getElementById('TotalCost').value = document.getElementById('MonthlyCost').innerHTML;
+            }
+            else if(document.getElementById('YearlyPlan').checked == true)
+            {
+                document.getElementById('TotalCost').value = document.getElementById('YearlyCost').innerHTML;
+            }
+        }
+        //This function submit confirm details form
+        function submitConfirmDetails()
+        {
+            document.getElementById('confirmDetailsForm').submit();
+            alert('Registration Succefull');
+        }
+        //This function cancel the registration
+        function cancelRegistration()
+        {
+            document.getElementById('confirmDetailsForm').submit();
+            alert('Registration Cancelled');
+        }
+        //This function convert INR to USD
+        function convertToUSD(value)
+        {
+            return (Math.round(( value / 72 ) * 100) / 100);
+        }
+        //This function convert INR to YEN
+        function convertToYEN(value)
+        {
+            return (Math.round(( value * 1.53 ) * 100) / 100);
+        }
+        //This function hide employee form
+        function hideEmpForm()
+        {
+            document.getElementById('EmployeeRegisterDiv').style.display = "none";
+        }
+        //This function show the vehicle form
+        function showVehicleForm()
+        {
+            document.getElementById('VehicleRegisterDiv').style.display = "inherit";
+        }
+        //This function hide the vehicle form
+        function hideVehicleForm()
+        {
+            document.getElementById('VehicleRegisterDiv').style.display = "none";
+        }
+        //This fuction show the select plan form
+        function showSelectPlanForm(){
+            document.getElementById('SelectPlanDiv').style.display = "inherit";
+        }
+        //This function hide the select plan form
+        function hideSelectPlanForm()
+        {
+            document.getElementById('SelectPlanDiv').style.display = "none";
+        }
+        //This function show the confirm details form
+        function showConfirmDetailsForm()
+        {
+            document.getElementById('ConfirmDetailsDiv').style.display = "inherit";
+        }
+        //This function hide the confirm details form
+        function hideConfirmDetailsForm()
+        {
+            document.getElementById('ConfirmDetailsDiv').style.display = "none";
+        } 
+        //This function validate Emplyoee form
+        function validateEmpForm()
+        {
+            var empName = document.getElementById('employeeForm')[0];
+            if(!empName.checkValidity())
+            {
+                alert("Please enter valid name");
+                return false;
+            }
+            //validating gender
+            if(document.getElementById('EmpGenderM').checked == false && document.getElementById('EmpGenderF').checked == false)
+            {
+                alert('Please select gender');
+                return false;
+            }
+            //validating email
+            var empEmail = document.getElementById('employeeForm')[3];
+            if(!empEmail.checkValidity())
+            {
+                alert('Please enter valid email');
+                return false;
+            }
+            //validating password
+            var empPassword = document.getElementById('employeeForm')[4];
+            if(!empPassword.checkValidity())
+            {
+                alert('Please enter valid password');
+                return false;
+            }
+            //validating confirm password
+            var empConfirmPassword = document.getElementById('employeeForm')[5];
+            if(!empConfirmPassword.checkValidity())
+            {
+                alert('Please enter valid confirm password');
+                return false;
+            }
+            else if(empConfirmPassword.value != empPassword.value)
+            {
+                alert('Please enter same password');
+                return false;
+            }
+            //validating contact number
+            var empContact = document.getElementById('employeeForm')[6];
+            if(!empContact.checkValidity())
+            {
+                alert('Please enter valid contact number');
+                return false;
+            }
+            return true;
+        }  
+        //This function validate vehicle form inputs
+        function validateVehicleForm()
+        {
+            var vehicleName = document.getElementById('vehicleForm')[0];
+            if(!vehicleName.checkValidity())
+            {
+                alert('Please enter valid vehicle name');
+                return false;
+            }
+            var vehicleNumber = document.getElementById('vehicleForm')[2];
+            if(vehicleNumber.value == "")
+            {
+                alert('Please enter valid vehicle number');
+                return false;
+            }
+            var vehicleIdentification = document.getElementById('vehicleForm')[4];
+            if(vehicleIdentification.value == "")
+            {
+                alert('Please enter vehicle identifications');
+                return false;
+            }
+            return true;
+        }
+    </script>
+</head>
+<body>
+    <h1 align = "center" >Metacube Parking System</h1>
+    <br>
+    <hr> 
+        <div id = "EmployeeRegisterDiv" >
+            <h2 align = "center">Employee Registration</h2>
+            <form  id = "employeeForm">
+                <table align = "center" >
+                    <tr>
+                       <td>
+                            <label><b>Name: </b></label>
+                        </td>
+                        <td>
+                            <input type = "text" name = "EmpName" id = "EmpName" placeholder = "Enter your name" pattern = "([a-zA-Z ]+)" title = "(should contain only alphabet's and minimum length should be 2)" minlength = "2" required>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <label><b>Gender: </b></label>
+                        </td>
+                        <td>
+                            <label>
+                                <input type = "radio" name = "EmpGender" id = "EmpGenderM" value = "M" required>Male
+                            </label>
+                            <label>
+                                    <input type = "radio" name = "EmpGender" id = "EmpGenderF" value = "F" required>Female
+                            </label>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <label><b>Email: </b></label>
+                        </td>
+                        <td>
+                            <input type = "email" name = "EmpEmail" id="EmpEmail" placeholder = "Enter your email" required>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <label><b>Password: </b></label>
+                        </td>
+                        <td>
+                            <input type = "password" name = "EmpPassword" id = "EmpPassword" placeholder = "Enter your password" pattern = "(?=.*\d)(?=.*[a-z]).{4,}" minlength="4" title="(should be minimum 4 character and should contain  lower case and number characters)" required>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <label><b>Confirm Password: </b></label>
+                        </td>
+                        <td>
+                            <input type = "password" name = "EmpConfirmPassword" id = "EmpConfirmPassword" placeholder = "Enter same password again" pattern = "(?=.*\d)(?=.*[a-z).{4,}" minlength = "4" title = "(should be same as above)" required>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <label><b>Contact Number: </b></label>
+                        </td>
+                        <td>
+                            <input type = "text" name = "EmpContactNumber" id = "EmpContactNumber" placeholder = "Enter your contact number" pattern = "[0-9]+" minlength = "8" title = "(should be numeric only and minimum 8 numbers" required>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td colspan = "2" align = "center">
+                            <input type = "button" value = "Next" onclick = "submitEmpForm()">
+                        </td>
+                    </tr>
+                </table>
+            </form>
+        </div>
+        <div id = "VehicleRegisterDiv" style = "display: none">
+            <br/>
+            <h2 align = "center">Vehicle Registration</h2>
+            <form id = "vehicleForm">
+            <table align = "center">
+                <tr>
+                    <td>
+                        <label><b>Vehicle Name: </b></label>
+                    </td>
+                    <td>
+                        <input type = "text" name = "EmpVehicleName" id = "EmpVehicleName" placeholder = "Enter your vehicle name" pattern = "[a-zA-Z]+" minlength = "4" required>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <label><b>Vehicle Type: </b></label>
+                    </td>
+                    <td>
+                        <select name = "EmpVehicleType" id = "EmpVehicleType" required>
+                            <option value = "Cycle"> Cycle </option>
+                            <option value = "MotorCycle"> Motor Cycle </option>
+                            <option value = "FourWheeler"> Four Wheeler </option>
+                        </select>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <label><b>Vehicle Number: </b></label>
+                    </td>
+                    <td>
+                        <input type = "text" name = "EmpVehicleNumber" id = "EmpVehicleNumber" placeholder = "Enter your vehicle number" required>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <label><b>Employee Id: </b></label>
+                    </td>
+                    <td>
+                        <input type = "text" name = "EmpId" id = "EmpId" readonly required>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <label><b>Vehicle Identification: </b></label>
+                    </td>
+                    <td>
+                        <textarea name = "EmpVehicleIdentification" id = "EmpVehicleIdentification" cols = "20" rows="5" placeholder = "Enter your vehicle identifications" required></textarea>
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan = "2" align = "center">
+                        <input type = "button" value = "Next" onclick = "submitVehicleForm()">
+                    </td>
+                </tr>
+            </table>
+        </form>
+        </div>
+        <div id="SelectPlanDiv" style="display: none">
+            <br/>
+            <h2 align = "center">Plan Selection</h2>
+            <form id = "planForm">
+            <table align = "center">
+                <tr>
+                    <td colspan = "3">
+                        <label><b>Currency: </b></label>
+                        <select name = "CurrencySelect" id = "CurrencySelect" onchange = "showCurrency()" required>
+                            <option value = "INR">INR</option>
+                            <option value = "USD">USD</option>
+                            <option value = "YEN">YEN</option>
+                        </select>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <label><b>Plan: </b></label>
+                    </td> 
+                </tr>
+                <tr>
+                    <td>
+                        <label>
+                            <input type = "radio" name = "VehiclePlan" id = "DailyPlan" value = "Daily" required onclick = "showTotal()">Daily
+                        </label>
+                    </td>
+                    <td>
+                        <label>
+                            <input type = "radio" name = "VehiclePlan" id = "MonthlyPlan" value = "Monthly" required onclick = "showTotal()">Monthly
+                        </label>
+                    </td>
+                    <td>
+                        <label>
+                            <input type = "radio" name = "VehiclePlan" id = "YearlyPlan" value = "Yearly" required onclick = "showTotal()">Yearly    
+                        </label>
+                    </td>
+                </tr>
+                <tr>
+                    <td id = "costField">
+                        <label id = "DailyCost"></label>
+                    </td>
+                    <td id = "costField">
+                        <label id = "MonthlyCost"></label>
+                    </td>
+                    <td id = "costField">
+                        <label id = "YearlyCost"></label>
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan = "3">
+                        <label><b>Total Cost: </b></label>
+                        <input type = "text" name = "TotalCost" id = "TotalCost" readonly>
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan = "3" align = "center">
+                        <input type = "button" value = "Register" onclick = "submitPlanForm()">
+                    </td>
+                </tr>
+            </table>
+        </form>
+    </div>
+    <div id = "ConfirmDetailsDiv" align = "center" style = "display: none">
+        <br/>
+        <h2>Confirm Details</h2>
+        <form action = "" id = "confirmDetailsForm">
+            <table>
+                <tr>
+                    <td>
+                        <label><b>Name : </b></label>
+                    </td>
+                    <td>
+                        <label id = "CDEmpName"></label>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <label><b>Vehicle Type : </b></label>
+                    </td>
+                    <td>
+                        <label id = "CDVehicleType"></label>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <label><b>Vehicle Number : </b></label>
+                    </td>
+                    <td>
+                        <label id = "CDVehicleNumber"></label>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <label><b>Plan : </b></label>
+                    </td>
+                    <td>
+                        <label id = "CDPlan"></label>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <input type = "button" value = "Register" onclick = "submitConfirmDetails()">
+                    </td>
+                    <td>
+                        <input type = "button" value = "Cancel" onclick = "cancelRegistration()">
+                    </td>
+                </tr>
+            </table>
+        </form>
+    </div>
+</body>
+</html>
