@@ -1,0 +1,13 @@
+spring:
+  mvc:
+   view:
+    prefix: /WEB-INF/pages/
+    suffix: .jsp
+  datasource: 
+   url: jdbc:mysql://localhost:3306/Parking
+   username: root
+   password: rama429874   
+home:
+ message: Welcome Default  
+
+
