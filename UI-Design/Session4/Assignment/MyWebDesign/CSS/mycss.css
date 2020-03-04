@@ -1,0 +1,266 @@
+body
+{
+    background-image: url("images/bodybg.png");
+}
+.header 
+{
+    position: relative;
+    text-align: center;
+    color:white;
+    width: 100%;
+  }
+  /* Top left text */
+  .header-top-left 
+  {
+    position: absolute;
+    top: 18px;
+    left: 150px;
+  }
+  
+  /* Top right text */
+  .header-top-right 
+  {
+    position: absolute;
+    top: 14px;
+    right: 150px;
+  }
+  .social-logo
+  {
+      width: 20px;
+  }
+  
+  /* Centered text */
+  .header-centered-right 
+  {
+    position: absolute;
+    top: 50%;
+    right: 3%;
+    transform: translate(-50%, -50%);
+  }
+  .header-centered-left 
+  {
+    position: absolute;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+    top: 31%;
+    left: 30%;
+    width: 400px;
+    font-size: 45px;
+    text-align: left;
+    transform: translate(-50%, -50%);
+  }
+  .header-top-centered 
+  {
+    position: absolute;
+    top: 28px;
+    left: 50%;
+    justify-content: center;
+    transform: translate(-50%, -50%);
+  }
+  #menu
+  {
+    text-decoration: none;
+    color: white;
+    margin-left: 25px;
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: large;
+  }
+  #DownloadButton
+  {
+      background-color: #f35627;
+      opacity: 0.9;
+      border: none;
+      border-radius: 4%;
+      color: white;
+      height: 45px;
+      padding: 25px;
+      padding-top: 15px;
+  }
+  #FeaturesButton
+  {
+      background-color: rgb(54, 54, 211);
+      opacity: 0.9;
+      border: none;
+      border-radius: 4%;
+      color: white;
+      height: 45px;
+      padding: 25px;
+      padding-top: 15px;
+  }
+  
+  .perfect-features, .Screenshots, .reviewes
+  {
+      justify-content: center;
+      align-self: center;
+      text-align: center;
+      margin-top: 50px;
+  }
+  .perfect-features > h2, .Screenshots > h2 ,.reviewes > h2
+  {
+      color: rgb(22, 154, 206);
+      margin-bottom: -8px;
+  }
+   p
+  {
+      color: rgb(73, 72, 72);
+  }
+  .vertical-flex-container
+  {
+      display: flex;
+      flex-direction: column;
+  }
+  .horizontal-flex-container
+  {
+      display: flex;
+      flex-direction: row;
+  }
+  #Features
+  {
+      width: 80%;
+      align-self: center;
+  }
+  #diamond-logo1,#diamond-logo2,#diamond-logo3
+  {
+      margin-top: 19px;
+      margin-right: 12px;
+      margin-left: 20px;
+  }
+  #Features-Div, #quotes-div-container
+  {
+      justify-content: center;
+      align-self: center;
+  }
+  #second-section
+  {
+      justify-content: center;
+      align-content: center;
+  }
+
+  #screenshot-div 
+  {
+      justify-content: center;
+      align-items: center;
+      margin-top: 40px;
+  }
+  #screen03, #screen01,#screen02
+  {
+      width: 25%;
+  }
+
+  #screen03-content, #screen01-content
+{
+    width: 25%;
+}
+#screen02-content
+{
+    width: 25%;
+    padding-right: 100px;
+}
+#quotes-div
+{
+    margin-left: 50px;
+    width: 35%;
+}
+#start-quotes, #end-quotes
+{
+    color: blue;
+    font-style: italic;
+    font-size: 40px;
+    font-family: 'Courier New', Courier, monospace;
+    
+}
+#end-quotes
+{
+    float: right;
+    margin-top: -20px;
+}
+#start-quotes
+{
+    margin-top: -30px;
+    margin-bottom: -30px;
+}
+#quotes
+{
+    font-size: large;
+}
+#author
+{
+    font-size: smaller;
+    font-style: italic;
+    margin-top: -10px;
+}
+.reviewes
+{
+    margin-bottom: 80px;
+}
+#fourth-section
+{
+    background-color: rgb(76, 76, 240);
+    color: white;
+    justify-content: center;
+    padding-top: 140px;
+}
+#how-to-download-div
+{
+    width: 25%;
+    margin-right: 140px;
+    color: white;
+    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+}
+#how-to-download-image
+{
+    padding-bottom: 0px;
+}
+#how-to-download-image-div
+{
+    padding-top: 40px;
+    width: 35%;
+}
+#apple-store-image, #play-store-image
+{
+    margin-right: 10px;
+    margin-top: 20px;
+}
+
+.footer 
+{
+    position: relative;
+    text-align: center;
+    background-color: rgb(54, 54, 85);
+    height: 150px;
+    color:white;
+    width: 100%;
+  }
+  .footer-top-left 
+  {
+    position: absolute;
+    top: 22px;
+    left: 150px;
+  }
+  
+  .footer-top-centered 
+  {
+    position: absolute;
+    top: 35px;
+    left: 50%;
+    justify-content: center;
+    transform: translate(-50%, -50%);
+  }
+  
+  .footer-top-right 
+  {
+    position: absolute;
+    top: 22px;
+    right: 150px;
+  }
+  .footer-centered-bottom
+  {
+    position: absolute;
+    top: 65%;
+    left: 47%;
+  }
+  #footer-hr
+  {
+    position: absolute;
+    top: 45%;
+    left: 10%;
+  }
